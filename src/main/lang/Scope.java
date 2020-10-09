@@ -1,8 +1,8 @@
 package main.lang;
 
-import main.lang.util.types.Function;
-import main.lang.util.types.FunctionPointer;
-import main.lang.util.types.Variable;
+
+import main.lang.types.Function;
+import main.lang.types.Variable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,7 +13,6 @@ import java.util.Map;
 public class Scope {
 
     private Map<String, Variable> variablesMap;
-    private Map<String, FunctionPointer> functionPointerMap;
 
     private Scope fatherScope;
 
@@ -23,7 +22,6 @@ public class Scope {
     public Scope (Scope fatherScope) {
         this.fatherScope = fatherScope;
         this.variablesMap = new HashMap<>();
-        this.functionPointerMap = new HashMap<>();
     }
 
     public Variable getVariable(String name) {
@@ -37,22 +35,17 @@ public class Scope {
         }
         return answer;
     }
-    public void setVariable(String name, Variable var) {
-        variablesMap.put(name, var);
+
+    public void setVariableValue(String name, Value val) {
+        variablesMap.put(name, new Variable(name, val));
     }
 
-    public FunctionPointer getFunctionPointer(String name) {
-        FunctionPointer answer = functionPointerMap.get(name);
-        if (answer == null) {
-            if (fatherScope != null)
-                answer = fatherScope.getFunctionPointer(name);
-            if (answer == null) {
-                throw new IllegalArgumentException("Function " + name + " not found");
-            }
-        }
-        return answer;
+
+    public Function getFunction(String name) {
+        Variable ans = getVariable(name);
+        if (ans.getValue().isFunction())
+            return (Function) ans.getValue();
+        throw new IllegalArgumentException(name + " is not a Function");
     }
-    public void setFunction(FunctionPointer functionPointer) {
-        this.functionPointerMap.put(functionPointer.getName(), functionPointer);
-    }
+
 }

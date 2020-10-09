@@ -2,8 +2,10 @@ package main.lang.parser;
 
 import main.lang.Expression;
 import main.lang.Scope;
-import main.lang.util.types.Number;
-import main.lang.util.types.Variable;
+import main.lang.types.Function;
+import main.lang.types.List;
+import main.lang.types.Number;
+import main.lang.types.Variable;
 
 import java.util.ArrayList;
 
@@ -28,17 +30,29 @@ public class Parser {
         private String parseUnaryString() {
             skipWhitespace();
             StringBuilder sb = new StringBuilder();
-            while (ch != ')'  && ch != ' ' && ch!='\0') {
+            while (ch != ')'  && ch != ' ' && ch != '\0' && ch!=']') {
                 sb.append(ch);
                 nextChar();
             }
+            skipWhitespace();
             return sb.toString();
         }
-
+        private Expression parseList() {
+            skipWhitespace();
+            List l = new List(new ArrayList<>());
+            while (ch!=']' && ch!='\0') {
+                l.getInnerValue().add(parseUnary());
+            }
+            nextChar();
+            skipWhitespace();
+            return  l;
+        }
         private Expression parseUnary() {
             skipWhitespace();
-
-            if (between('0', '9')) {
+            if (test('[')) {
+                return parseList();
+            }
+            if (between('0', '9') || ch == '-') {
                 String numb = parseUnaryString();
                 try {
                    Double val = Double.parseDouble(numb);
@@ -48,20 +62,29 @@ public class Parser {
                     System.err.println(e);
                 }
             }
+            skipWhitespace();
             return new Variable(parseUnaryString());
         }
 
         private Expression parseFunction() {
-
-            String funcName = parseUnaryString();
+            Function f;
+            if (ch == '(') {
+                f = (Function) parseExpression().evaluate(globalScope);
+            }
+            else {
+                String funcName = parseUnaryString();
+                f = globalScope.getFunction(funcName);
+            }
 
             ArrayList<Expression> args = new ArrayList<>();
             while (ch != ')') {
                 args.add(parseExpression());
+                if (ch == '\0')
+                    throw new IllegalArgumentException("Missing )");
             }
             nextChar();
-
-            return globalScope.getFunctionPointer(funcName).getFunction().getFunctionCall(args);
+            skipWhitespace();
+            return f.getFunctionCall(args);
         }
 
         public Expression parseExpression() {

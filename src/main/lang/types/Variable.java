@@ -1,8 +1,8 @@
-package main.lang.util.types;
+package main.lang.types;
 
 import main.lang.Expression;
 import main.lang.Scope;
-import main.lang.util.Value;
+import main.lang.Value;
 
 
 
@@ -20,7 +20,12 @@ public class Variable  implements Expression {
         this.name = name;
         this.value = value;
     }
-    private  Value getValue() {
+
+    public String getName() {
+        return name;
+    }
+
+    public Value getValue() {
         return this.value;
     }
 

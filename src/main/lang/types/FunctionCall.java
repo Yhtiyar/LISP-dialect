@@ -1,4 +1,4 @@
-package main.lang.util.types;
+package main.lang.types;
 
 import main.lang.Expression;
 

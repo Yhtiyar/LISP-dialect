@@ -1,11 +1,11 @@
-package main.lang.operations;
+package main.lang.util.operations;
 
 import main.lang.Expression;
 import main.lang.Scope;
-import main.lang.util.Value;
-import main.lang.util.types.Function;
-import main.lang.util.types.FunctionCall;
-import main.lang.util.types.Number;
+import main.lang.Value;
+import main.lang.types.Function;
+import main.lang.types.FunctionCall;
+import main.lang.types.Number;
 
 import java.util.ArrayList;
 
@@ -24,6 +24,8 @@ public class Subtract extends Function {
 
             @Override
             public Value evaluate(Scope scope) {
+                if (args.size() < 1)
+                    throw new IllegalArgumentException("Wrong number of args expected at least 1");
                 Number ans = new Number(0.d);
                 for (var expr : args) {
                     Value res = expr.evaluate(scope);
