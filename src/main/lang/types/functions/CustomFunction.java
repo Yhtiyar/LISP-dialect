@@ -1,8 +1,9 @@
-package main.lang.types;
+package main.lang.types.functions;
 
 import main.lang.Expression;
 import main.lang.Scope;
 import main.lang.Value;
+import main.lang.types.Variable;
 
 import java.util.ArrayList;
 

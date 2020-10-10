@@ -4,6 +4,9 @@ import main.lang.Expression;
 import main.lang.Scope;
 import main.lang.Value;
 import main.lang.types.*;
+import main.lang.types.functions.CustomFunction;
+import main.lang.types.functions.Function;
+import main.lang.types.functions.FunctionCall;
 
 import java.util.ArrayList;
 

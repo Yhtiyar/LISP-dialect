@@ -3,9 +3,9 @@ package main.lang.util.operations;
 import main.lang.Expression;
 import main.lang.Scope;
 import main.lang.Value;
-import main.lang.types.CustomFunction;
-import main.lang.types.Function;
-import main.lang.types.FunctionCall;
+import main.lang.types.functions.CustomFunction;
+import main.lang.types.functions.Function;
+import main.lang.types.functions.FunctionCall;
 import main.lang.types.Variable;
 
 import java.util.ArrayList;
@@ -30,10 +30,11 @@ public class Def extends Function {
                 if (!(args.get(0) instanceof Variable)) {
                     throw new IllegalArgumentException("def first value should be variable");
                 }
-                if (args.get(1) instanceof CustomFunction) {
-                    ((CustomFunction) args.get(1)).setName(((Variable) args.get(0)).getName());
+                Value val = args.get(1).evaluate(scope);
+                if (val instanceof CustomFunction) {
+                    ((CustomFunction) val).setName(((Variable) args.get(0)).getName());
                 }
-                scope.setVariableValue(((Variable) args.get(0)).getName(), args.get(1).evaluate(scope));
+                scope.setVariableValue(((Variable) args.get(0)).getName(), val);
                 return args.get(1).evaluate(scope);
             }
         };

@@ -1,6 +1,7 @@
 package main.lang;
 
-import main.lang.types.Function;
+import main.lang.types.StringValue;
+import main.lang.types.functions.Function;
 import main.lang.types.List;
 import main.lang.types.Number;
 
@@ -22,5 +23,8 @@ public abstract class Value implements Expression {
     }
     public boolean isList() {
         return (this instanceof List);
+    }
+    public boolean isStringValue() {
+        return (this instanceof StringValue);
     }
 }

@@ -1,4 +1,4 @@
-package main.lang.types;
+package main.lang.types.functions;
 
 import main.lang.Expression;
 import main.lang.Scope;

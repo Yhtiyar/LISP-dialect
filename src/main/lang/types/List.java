@@ -1,6 +1,7 @@
 package main.lang.types;
 
 import main.lang.Expression;
+import main.lang.Scope;
 import main.lang.Value;
 import java.util.ArrayList;
 
@@ -16,6 +17,13 @@ public class List extends Value {
 
     public ArrayList<Expression> getInnerValue() {
         return this.innerValue;
+    }
+
+    @Override
+    public Value evaluate(Scope scope) {
+        for (int i = 0; i < innerValue.size(); ++i)
+            innerValue.set(i, innerValue.get(i).evaluate(scope));
+        return this;
     }
 
     @Override

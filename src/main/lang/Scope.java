@@ -1,7 +1,7 @@
 package main.lang;
 
 
-import main.lang.types.Function;
+import main.lang.types.functions.Function;
 import main.lang.types.Variable;
 
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package main.lang.types;
+package main.lang.types.functions;
 
 import main.lang.Expression;
 
@@ -9,7 +9,7 @@ import java.util.ArrayList;
  */
 public abstract class FunctionCall implements Expression {
 
-    private ArrayList<Expression> args;
+    protected ArrayList<Expression> args;
 
     public FunctionCall(ArrayList<Expression> args) {
         this.args = args;

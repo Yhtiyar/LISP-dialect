@@ -2,10 +2,11 @@ package main.lang.parser;
 
 import main.lang.Expression;
 import main.lang.Scope;
-import main.lang.types.Function;
+import main.lang.types.functions.Function;
 import main.lang.types.List;
 import main.lang.types.Number;
 import main.lang.types.Variable;
+import main.lang.types.functions.PrivateFunctionCall;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class Parser {
                 sb.append(ch);
                 nextChar();
             }
+            if (sb.toString().length() == 0)
+                throw new IllegalArgumentException("Cannot parse expression, stuck at" + ch);
             skipWhitespace();
             return sb.toString();
         }
@@ -41,7 +44,7 @@ public class Parser {
             skipWhitespace();
             List l = new List(new ArrayList<>());
             while (ch!=']' && ch!='\0') {
-                l.getInnerValue().add(parseUnary());
+                l.getInnerValue().add(parseExpression());
             }
             nextChar();
             skipWhitespace();
@@ -49,6 +52,9 @@ public class Parser {
         }
         private Expression parseUnary() {
             skipWhitespace();
+            if (ch == '\0') {
+                throw new IllegalArgumentException("Unexpected end of expr");
+            }
             if (test('[')) {
                 return parseList();
             }
@@ -73,7 +79,21 @@ public class Parser {
             }
             else {
                 String funcName = parseUnaryString();
-                f = globalScope.getFunction(funcName);
+                try {
+                    f = globalScope.getFunction(funcName);
+                }
+                catch (Exception e) {
+                    ArrayList<Expression> args = new ArrayList<>();
+                    while (ch != ')') {
+                        args.add(parseExpression());
+                        if (ch == '\0')
+                            throw new IllegalArgumentException("Missing )");
+                    }
+                    nextChar();
+                    skipWhitespace();
+                    PrivateFunctionCall pc = new PrivateFunctionCall(args, funcName);
+                    return pc;
+                }
             }
 
             ArrayList<Expression> args = new ArrayList<>();
@@ -92,6 +112,10 @@ public class Parser {
             if (test('(')) {
                 return parseFunction();
             }
+            if (ch == '\0') {
+                throw new IllegalArgumentException("Unexpected end of expr");
+            }
+
             return parseUnary();
         }
     }
