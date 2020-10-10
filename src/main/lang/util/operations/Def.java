@@ -35,7 +35,7 @@ public class Def extends Function {
                     ((CustomFunction) val).setName(((Variable) args.get(0)).getName());
                 }
                 scope.setVariableValue(((Variable) args.get(0)).getName(), val);
-                return args.get(1).evaluate(scope);
+                return val;
             }
         };
     }
