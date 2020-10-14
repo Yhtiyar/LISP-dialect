@@ -1,5 +1,6 @@
 package main.lang;
 
+import main.lang.types.Bool;
 import main.lang.types.StringValue;
 import main.lang.types.functions.Function;
 import main.lang.types.List;
@@ -27,4 +28,5 @@ public abstract class Value implements Expression {
     public boolean isStringValue() {
         return (this instanceof StringValue);
     }
+    public boolean isBoolean () {return (this instanceof Bool); }
 }

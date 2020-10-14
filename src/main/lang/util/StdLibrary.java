@@ -1,6 +1,7 @@
 package main.lang.util;
 
 import main.lang.Scope;
+import main.lang.types.Bool;
 import main.lang.util.math.Ln;
 import main.lang.util.operations.*;
 import main.lang.util.operations.arithmetics.Add;
@@ -9,6 +10,10 @@ import main.lang.util.operations.arithmetics.Multiply;
 import main.lang.util.operations.arithmetics.Subtract;
 import main.lang.util.operations.logical.*;
 import main.lang.util.operations.loops.While;
+import main.lang.util.operations.typechekers.IsBool;
+import main.lang.util.operations.typechekers.IsList;
+import main.lang.util.operations.typechekers.IsNumber;
+import main.lang.util.operations.typechekers.IsString;
 
 
 /**
@@ -50,6 +55,11 @@ public class StdLibrary {
         scope.setVariableValue("not", new Not());
         scope.setVariableValue("if", new If());
         scope.setVariableValue("defn", new Defn());
+
+        scope.setVariableValue("bool?", new IsBool());
+        scope.setVariableValue("list?", new IsList());
+        scope.setVariableValue("number?", new IsNumber());
+        scope.setVariableValue("string?", new IsString());
 
 
     }
