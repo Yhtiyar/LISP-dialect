@@ -24,13 +24,16 @@ public class Println extends Function {
             @Override
             public Value evaluate(Scope scope) {
                 if (args.size() == 0)
-                    return new StringValue("");
+                   {
+                       System.out.println();
+                       return new StringValue("");}
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < args.size() - 1; ++i) {
                     sb.append(args.get(i).evaluate(scope)).append("\n");
                 }
                 sb.append(args.get(args.size() - 1).evaluate(scope));
-                return new StringValue(sb.toString());
+                System.out.println(sb.toString());
+                return null;
             }
         };
     }

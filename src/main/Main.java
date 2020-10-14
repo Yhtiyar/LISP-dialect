@@ -5,14 +5,35 @@ import main.lang.Scope;
 import main.lang.util.StdLibrary;
 import main.lang.parser.Parser;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-	// write your code here
-        //System.out.println(Parser.parse("(+ 1 2)", StdLibrary.getGlobalScope()));
         Scope globalScope = StdLibrary.getGlobalScope();
+
+        if (args.length > 0) {
+            String fileName = args[0];
+            System.out.println("--------Loading File : " + fileName + " ----------");
+            StringBuilder source = new StringBuilder();
+            try {
+                Scanner fc = new Scanner(new FileInputStream(fileName));
+
+                while (fc.hasNext()) {
+                    source.append(fc.nextLine());
+                }
+            }
+            catch (FileNotFoundException e) {
+                System.err.println("File not found " + fileName);
+            }
+            //System.out.println();
+            System.out.println("-----File Successfully loaded---------");
+            FileRunner.run(source.toString(), globalScope);
+        }
+
+
         Scanner sc = new Scanner(System.in);
         while (true) {
             try {

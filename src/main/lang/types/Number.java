@@ -16,7 +16,6 @@ public class Number extends Value {
         return innerValue;
     }
 
-
     public void add(Double d) { this.innerValue += d; }
     public void multiply(Double d) { this.innerValue *= d; }
     public void divide(Double d) { this.innerValue /= d; }

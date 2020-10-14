@@ -7,6 +7,8 @@ import main.lang.util.operations.arithmetics.Add;
 import main.lang.util.operations.arithmetics.Divide;
 import main.lang.util.operations.arithmetics.Multiply;
 import main.lang.util.operations.arithmetics.Subtract;
+import main.lang.util.operations.logical.*;
+import main.lang.util.operations.loops.While;
 
 
 /**
@@ -35,6 +37,21 @@ public class StdLibrary {
         scope.setVariableValue("range", new Range());
         scope.setVariableValue("apply", new Apply());
         scope.setVariableValue("do", new Do());
+
+        scope.setVariableValue("while", new While());
+
+        scope.setVariableValue(">", new Greater());
+        scope.setVariableValue("<", new Less());
+        scope.setVariableValue(">=", new GreaterEqual());
+        scope.setVariableValue("<=", new LessEqual());
+        scope.setVariableValue("=", new Equal());
+        scope.setVariableValue("and", new And());
+        scope.setVariableValue("or", new Or());
+        scope.setVariableValue("not", new Not());
+        scope.setVariableValue("if", new If());
+        scope.setVariableValue("defn", new Defn());
+
+
     }
 
 }

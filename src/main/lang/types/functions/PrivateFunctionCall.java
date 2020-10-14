@@ -29,7 +29,7 @@ public class PrivateFunctionCall extends FunctionCall {
     @Override
     public Value evaluate(Scope scope) {
         Function f = scope.getFunction(funcName);
-        System.err.println("----DEBUG-INFO--- : getting function:"+funcName);
+        //System.err.println("----DEBUG-INFO--- : getting function:"+funcName);
         return f.getFunctionCall(args).evaluate(scope);
     }
 }

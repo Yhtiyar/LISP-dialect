@@ -26,11 +26,11 @@ public class Subtract extends Function {
             public Value evaluate(Scope scope) {
                 if (args.size() < 1)
                     throw new IllegalArgumentException("Wrong number of args expected at least 1");
-                Number ans = new Number(0.d);
-                for (var expr : args) {
-                    Value res = expr.evaluate(scope);
+                Number ans  = (Number) args.get(0).evaluate(scope);
+                for (int i = 1; i < args.size(); i++) {
+                    Value res = args.get(i).evaluate(scope);
                     if (!(res instanceof Number))
-                        throw new IllegalArgumentException("Cannot cast :" + expr + " to Number");
+                        throw new IllegalArgumentException("Cannot cast :" + args.get(i) + " to Number");
                     ans.add(-((Number) res).getInnerValue());
                 }
                 return ans;
