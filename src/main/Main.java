@@ -31,6 +31,7 @@ public class Main {
             //System.out.println();
             System.out.println("-----File Successfully loaded---------");
             FileRunner.run(source.toString(), globalScope);
+            FileRunner.run("(defn != [a b] (not (= a b)))", globalScope);
         }
 
 

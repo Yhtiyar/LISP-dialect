@@ -10,15 +10,15 @@ import main.lang.types.functions.FunctionCall;
 import java.util.ArrayList;
 
 /**
- * @author Yhtyyar created on 10.10.2020
+ * @author Yhtyyar created on 15.10.2020
  */
-public class Map extends Function {
+public class Lmap extends Function {
     @Override
     public FunctionCall getFunctionCall(ArrayList<Expression> args) {
         return new FunctionCall(args) {
             @Override
             protected String getName() {
-                return "map";
+                return "lmap";
             }
 
             @Override
@@ -33,7 +33,7 @@ public class Map extends Function {
                 for (int i = 0; i < l.getInnerValue().size(); ++i) {
                     ArrayList<Expression> e = new ArrayList<>();
                     e.add(l.getInnerValue().get(i));
-                    listVals.add(f.getFunctionCall(e).evaluate(scope));
+                    listVals.add(f.getFunctionCall(e));
                 }
                 return new List(listVals);
             }

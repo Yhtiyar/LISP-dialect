@@ -2,12 +2,14 @@ package main.lang.util;
 
 import main.lang.Scope;
 import main.lang.types.Bool;
+import main.lang.types.List;
 import main.lang.util.math.Ln;
 import main.lang.util.operations.*;
 import main.lang.util.operations.arithmetics.Add;
 import main.lang.util.operations.arithmetics.Divide;
 import main.lang.util.operations.arithmetics.Multiply;
 import main.lang.util.operations.arithmetics.Subtract;
+import main.lang.util.operations.listops.*;
 import main.lang.util.operations.logical.*;
 import main.lang.util.operations.loops.While;
 import main.lang.util.operations.typechekers.IsBool;
@@ -42,25 +44,31 @@ public class StdLibrary {
         scope.setVariableValue("range", new Range());
         scope.setVariableValue("apply", new Apply());
         scope.setVariableValue("do", new Do());
-
         scope.setVariableValue("while", new While());
-
         scope.setVariableValue(">", new Greater());
         scope.setVariableValue("<", new Less());
-        scope.setVariableValue(">=", new GreaterEqual());
-        scope.setVariableValue("<=", new LessEqual());
+    
         scope.setVariableValue("=", new Equal());
         scope.setVariableValue("and", new And());
         scope.setVariableValue("or", new Or());
         scope.setVariableValue("not", new Not());
         scope.setVariableValue("if", new If());
         scope.setVariableValue("defn", new Defn());
-
         scope.setVariableValue("bool?", new IsBool());
         scope.setVariableValue("list?", new IsList());
         scope.setVariableValue("number?", new IsNumber());
         scope.setVariableValue("string?", new IsString());
+        scope.setVariableValue("do-f", new DoF());
+        scope.setVariableValue("assert", new Assert());
+        scope.setVariableValue("insert!", new ForceInsert());
+        scope.setVariableValue("count", new Count());
+        scope.setVariableValue("lmap", new Lmap());
 
+        scope.setVariableValue("div", new Div());
+        scope.setVariableValue("mod", new Mod());
+        scope.setVariableValue("pushb!", new ForcePushBack());
+        scope.setVariableValue("pushf!", new ForcePushFront());
+        scope.setVariableValue("nth", new Nth());
 
     }
 

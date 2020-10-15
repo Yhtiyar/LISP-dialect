@@ -21,8 +21,10 @@ public class List extends Value {
 
     @Override
     public Value evaluate(Scope scope) {
-        for (int i = 0; i < innerValue.size(); ++i)
-            innerValue.set(i, innerValue.get(i).evaluate(scope));
+        for (int i = 0; i < innerValue.size(); ++i) {
+            if (!(innerValue.get(i) instanceof Value) || (innerValue.get(i) instanceof List))
+                innerValue.set(i, innerValue.get(i).evaluate(scope));
+        }
         return this;
     }
 

@@ -10,7 +10,9 @@ public class StringValue extends Value {
     public StringValue(String val) {
         this.val = val;
     }
-
+    public String getInnerValue() {
+        return val;
+    }
     @Override
     public String toString() {
         return "\"" + val + "\"";

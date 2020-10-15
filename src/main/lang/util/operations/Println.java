@@ -26,12 +26,13 @@ public class Println extends Function {
                 if (args.size() == 0)
                    {
                        System.out.println();
-                       return new StringValue("");}
+                       return new StringValue("");
+                   }
                 StringBuilder sb = new StringBuilder();
                 for (int i = 0; i < args.size() - 1; ++i) {
-                    sb.append(args.get(i).evaluate(scope)).append("\n");
+                    sb.append(args.get(i).evaluate(scope).evaluate(scope)).append("\n");
                 }
-                sb.append(args.get(args.size() - 1).evaluate(scope));
+                sb.append(args.get(args.size() - 1).evaluate(scope).evaluate(scope));
                 System.out.println(sb.toString());
                 return null;
             }

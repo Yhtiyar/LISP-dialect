@@ -25,7 +25,7 @@ public class Divide extends Function {
             public Value evaluate(Scope scope) {
                 if (args.size() < 1)
                     throw new IllegalArgumentException("Wrong number of args expected at least 1");
-                Number ans  = (Number) args.get(0).evaluate(scope);
+                Number ans  = new Number(((Number) args.get(0).evaluate(scope)) .getInnerValue());
                 for (int i = 1; i < args.size(); i++) {
                     Value res = args.get(i).evaluate(scope);
                     if (!(res instanceof Number))

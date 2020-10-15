@@ -34,14 +34,16 @@ public class CustomFunction extends Function {
         return new FunctionCall(args) {
             @Override
             protected String getName() {
-                return name;
+                if (name == null)
+                    return "pf";
+                return  name;
             }
 
             @Override
             public Value evaluate(Scope scope) {
                 Scope innerScope = new Scope(scope);
                 if (variables.size() != args.size())
-                    throw new IllegalArgumentException("Wrong arg count");
+                    throw new IllegalArgumentException("Wrong arg count: privateFunc");
                 for (int i = 0; i < args.size(); i++) {
                     innerScope.setVariableValue(variables.get(i).getName() ,args.get(i).evaluate(scope));
                 }

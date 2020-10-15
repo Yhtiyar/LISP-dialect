@@ -10,32 +10,29 @@ import main.lang.types.functions.FunctionCall;
 import java.util.ArrayList;
 
 /**
- * @author Yhtyyar created on 10.10.2020
+ * @author Yhtyyar created on 15.10.2020
  */
-public class Map extends Function {
+public class DoF extends Function {
     @Override
     public FunctionCall getFunctionCall(ArrayList<Expression> args) {
         return new FunctionCall(args) {
             @Override
             protected String getName() {
-                return "map";
+                return "do-f";
             }
 
             @Override
             public Value evaluate(Scope scope) {
                 if (args.size() != 2)
-                    throw new IllegalArgumentException("Incorrect arg count : map");
+                    throw new IllegalArgumentException("Wrong arg count : do-f");
                 Function f = (Function) args.get(0).evaluate(scope);
-
                 List l = (List) args.get(1).evaluate(scope);
-                ArrayList<Expression> listVals = new ArrayList<>();
-
-                for (int i = 0; i < l.getInnerValue().size(); ++i) {
-                    ArrayList<Expression> e = new ArrayList<>();
-                    e.add(l.getInnerValue().get(i));
-                    listVals.add(f.getFunctionCall(e).evaluate(scope));
+                for (var el : l.getInnerValue()) {
+                    ArrayList<Expression> t = new ArrayList<>();
+                    t.add(el.evaluate(scope));
+                    f.getFunctionCall(t).evaluate(scope);
                 }
-                return new List(listVals);
+                return null;
             }
         };
     }

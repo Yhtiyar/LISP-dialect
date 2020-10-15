@@ -3,6 +3,7 @@ package main.lang.util.operations;
 import main.lang.Expression;
 import main.lang.Scope;
 import main.lang.Value;
+import main.lang.types.List;
 import main.lang.types.functions.CustomFunction;
 import main.lang.types.functions.Function;
 import main.lang.types.functions.FunctionCall;

@@ -1,9 +1,11 @@
 package main.lang;
 
 
+import main.lang.types.List;
 import main.lang.types.functions.Function;
 import main.lang.types.Variable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,7 +38,12 @@ public class Scope {
         return answer;
     }
 
+
     public void setVariableValue(String name, Value val) {
+        if (val.isList()) {
+            //TODO rewrite parser, and send copy when getInnervalue
+            val = new List((ArrayList<Expression>) ((List)val).getInnerValue().clone());
+        }
         variablesMap.put(name, new Variable(name, val));
     }
 
