@@ -24,7 +24,7 @@ public class Map extends Function {
             @Override
             public Value evaluate(Scope scope) {
                 if (args.size() != 2)
-                    throw new IllegalArgumentException("Incorrect arg count : map");
+                    throw new IllegalArgumentException("Incorrect arg count : map" + args.size());
                 Function f = (Function) args.get(0).evaluate(scope);
 
                 List l = (List) args.get(1).evaluate(scope);

@@ -1,0 +1,116 @@
+
+(defn <= [a b]
+  (or (< a b) (= a b)))
+
+(defn >= [a b]
+  (or (> a b) (= a b)))
+
+(defn != [a b]
+  (not (= a b)))
+
+
+(defn **check-each [f v]
+  (apply and (lmap f v)))
+
+(defn vector? [v]
+  (**check-each number? v))
+
+(defn matrix? [m]
+  (**check-each vector? m))
+
+"Base functions"
+"Need to implement in java : throw, try, set!, import"
+
+
+(defn do-f [f v]
+  (do
+    (def i 0)
+    (while (< i (- (count v) 1))
+      (do
+        (set! i (+ i 1))
+        (f (nth v i)))
+      )
+
+    ))
+
+
+(defn gen-seq [firstVal cnt func]
+ (do
+  (def curr firstVal)
+  (def ans [firstVal])
+  (def i 1)
+  (while (< i cnt)
+   (do
+    (set! curr  (func curr))
+    (pushb! ans curr)
+    (set! i (+ i 1))
+    )
+   )
+  ans
+  )
+
+ )
+(defn range [first last] (range-step first last 1))
+(defn range-step [first last step]
+  (do
+   (def ans [])
+   (if (<= first last)
+    (do
+      (while (<= first last)
+        (do
+          (pushb! ans first)
+          (set! first (+ first step))
+          )
+          )
+      ans
+      )
+    (do
+      (while (>= first last)
+        (do
+          (pushb! ans first)
+          (set! first (- first step))
+          )
+        )
+      ans
+      )
+
+    ))
+  )
+
+
+(defn reduce [f v]
+  (do
+
+    (def curr (f (nth v 0) (nth v 1)))
+    (def i 2)
+    (while (< i (count v))
+      (do
+        (set! curr (f curr (nth v i)))
+        (set! i (+ i 1))
+        )
+      )
+    curr
+    )
+  )
+
+"List operations"
+"Base ops : ins!, list?, count, "
+
+(defn substr [v from to]
+  (do
+    (assert (list? v) "V should be list")
+    (assert (<= from to) "from should be less than to")
+    (map (fn [x] (nth v x)) (range from (- to 1)))))
+
+
+(defn prefix [v until]
+  (substr v 0 until))
+
+(defn suffix [v from]
+  (substr v from (count v)))
+
+(defn reverse [v]
+  (map (fn [x] (nth v x)) (range (- (count v) 1) 0)))
+
+
+

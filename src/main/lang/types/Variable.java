@@ -19,10 +19,14 @@ public class Variable  implements Expression {
     public Variable(String name, Value value) {
         this.name = name;
         this.value = value;
+
     }
 
     public String getName() {
         return name;
+    }
+    public boolean isInfinity () {
+        return name.charAt(0) == '&';
     }
 
     public Value getValue() {

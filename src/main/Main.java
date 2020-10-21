@@ -7,6 +7,7 @@ import main.lang.parser.Parser;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Scanner;
 
 public class Main {
@@ -14,25 +15,25 @@ public class Main {
     public static void main(String[] args) {
         Scope globalScope = StdLibrary.getGlobalScope();
 
-        if (args.length > 0) {
-            String fileName = args[0];
+        //if (args.length > 0) {
+            String fileName = "./lib/std.hl";
             System.out.println("--------Loading File : " + fileName + " ----------");
             StringBuilder source = new StringBuilder();
             try {
-                Scanner fc = new Scanner(new FileInputStream(fileName));
-
+                InputStream is = Main.class.getResourceAsStream("lib/std.hl");
+                //Scanner fc = new Scanner(new FileInputStream(fileName));
+                Scanner fc = new Scanner(is);
                 while (fc.hasNext()) {
                     source.append(fc.nextLine());
                 }
             }
-            catch (FileNotFoundException e) {
+            catch (Exception e) {
                 System.err.println("File not found " + fileName);
             }
             //System.out.println();
             System.out.println("-----File Successfully loaded---------");
             FileRunner.run(source.toString(), globalScope);
-            FileRunner.run("(defn != [a b] (not (= a b)))", globalScope);
-        }
+       // }
 
 
         Scanner sc = new Scanner(System.in);

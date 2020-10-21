@@ -1,14 +1,9 @@
 package main.lang.util;
 
 import main.lang.Scope;
-import main.lang.types.Bool;
-import main.lang.types.List;
 import main.lang.util.math.Ln;
 import main.lang.util.operations.*;
-import main.lang.util.operations.arithmetics.Add;
-import main.lang.util.operations.arithmetics.Divide;
-import main.lang.util.operations.arithmetics.Multiply;
-import main.lang.util.operations.arithmetics.Subtract;
+import main.lang.util.operations.arithmetics.*;
 import main.lang.util.operations.listops.*;
 import main.lang.util.operations.logical.*;
 import main.lang.util.operations.loops.While;
@@ -40,8 +35,8 @@ public class StdLibrary {
         scope.setVariableValue("type", new Type());
         scope.setVariableValue("ln", new Ln());
         scope.setVariableValue("map", new Map());
-        scope.setVariableValue("gen-seq", new GenSeq());
-        scope.setVariableValue("range", new Range());
+
+
         scope.setVariableValue("apply", new Apply());
         scope.setVariableValue("do", new Do());
         scope.setVariableValue("while", new While());
@@ -58,7 +53,7 @@ public class StdLibrary {
         scope.setVariableValue("list?", new IsList());
         scope.setVariableValue("number?", new IsNumber());
         scope.setVariableValue("string?", new IsString());
-        scope.setVariableValue("do-f", new DoF());
+
         scope.setVariableValue("assert", new Assert());
         scope.setVariableValue("insert!", new ForceInsert());
         scope.setVariableValue("count", new Count());

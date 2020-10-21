@@ -22,12 +22,24 @@ public class Fn extends Function {
                 if (args.size() != 2)
                     throw new IllegalArgumentException("fn takes 2 args");
                 List l = (List) args.get(0);
+                boolean isInf =  false;
                 ArrayList<Variable> vars = new ArrayList<>();
-                for (var expr:l.getInnerValue()) {
-                    Variable v = (Variable)expr;
+                for (int i = 0; i < l.getInnerValue().size(); i++) {
+                    Variable v = (Variable)l.getInnerValue().get(i);
+                    if (v.isInfinity()) {
+                        if (i != l.getInnerValue().size() - 1)
+                            throw new IllegalArgumentException("Infinity var should bew declared at the end");
+                        v = new Variable(v.getName().substring(1));
+                        vars.add(v);
+                        isInf = true;
+                        break;
+                    }
                     vars.add(v);
                 }
-                return new CustomFunction(vars, args.get(1));
+                CustomFunction cf = new CustomFunction(vars, args.get(1));;
+                if (isInf)
+                    cf.setInfinity();
+                return cf;
             }
 
             @Override

@@ -31,15 +31,27 @@ public class Defn extends Function {
                 if (!(args.get(0) instanceof Variable)) {
                     throw new IllegalArgumentException("def first value should be variable");
                 }
+
                 List l = (List) args.get(1);
+                boolean isInf =  false;
                 ArrayList<Variable> vars = new ArrayList<>();
-                for (var expr:l.getInnerValue()) {
-                    Variable v = (Variable)expr;
+                for (int i = 0; i < l.getInnerValue().size(); i++) {
+                    Variable v = (Variable)l.getInnerValue().get(i);
+                    if (v.isInfinity()) {
+                        if (i != l.getInnerValue().size() - 1)
+                            throw new IllegalArgumentException("Infinity var should bew declared at the end");
+                        v = new Variable(v.getName().substring(1));
+                        vars.add(v);
+                        isInf = true;
+                        break;
+                    }
                     vars.add(v);
                 }
 
                 CustomFunction cf=  new CustomFunction(vars, args.get(2));
                 cf.setName(((Variable) args.get(0)).getName());
+                if (isInf)
+                    cf.setInfinity();
                 scope.setVariableValue(((Variable) args.get(0)).getName(), cf);
                 return cf;
             }

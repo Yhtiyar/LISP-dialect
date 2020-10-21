@@ -1,4 +1,4 @@
-package main.lang.util.operations;
+package main.lang.util.operations.arithmetics;
 
 import main.lang.Expression;
 import main.lang.Scope;
